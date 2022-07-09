@@ -13,7 +13,7 @@ struct TodoListView: View {
     
     var body: some View {
         List {
-            ForEach(viewModel.dataManager.todos) { todo in
+            ForEach(viewModel.todos) { todo in
                 HStack {
                     Image(systemName: todo.isComplete ? "checkmark.circle.fill" : "checkmark.circle")
                     Text(todo.title)
@@ -38,8 +38,8 @@ struct TodoListView: View {
     }
 }
 
-//struct TodoListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TodoListView(dataManager: DataManager.preview)
-//    }
-//}
+struct TodoListView_Previews: PreviewProvider {
+    static var previews: some View {
+        TodoListView(viewModel: TodoListViewModel(dataManager: DataManager.preview))
+    }
+}

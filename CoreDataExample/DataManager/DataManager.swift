@@ -73,11 +73,8 @@ class DataManager: NSObject, ObservableObject {
 extension DataManager: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        //print("Did Change Content")
         if let newTodos = controller.fetchedObjects as? [TodoMO] {
-            print(newTodos)
             self.todos = newTodos.map({todo(from: $0)})
-            print(todos)
         }
     }
     
@@ -98,7 +95,6 @@ extension DataManager: NSFetchedResultsControllerDelegate {
 //MARK: - Todo Methods
 extension Todo {
     fileprivate init(todoMO: TodoMO) {
-        //self.init(title: todoMO.title ?? "", date: todoMO.date ?? Date(), isComplete: todoMO.isComplete)
         self.id = todoMO.id ?? UUID()
         self.title = todoMO.title ?? ""
         self.date = todoMO.date ?? Date()

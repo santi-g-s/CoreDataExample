@@ -89,6 +89,28 @@ extension DataManager: NSFetchedResultsControllerDelegate {
             return .failure(error)
         }
     }
+    
+    func fetchTodos(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) {
+        if let predicate = predicate {
+            todosFRC.fetchRequest.predicate = predicate
+        }
+        if let sortDescriptors = sortDescriptors {
+            todosFRC.fetchRequest.sortDescriptors = sortDescriptors
+        }
+        try? todosFRC.performFetch()
+        if let newTodos = todosFRC.fetchedObjects {
+            self.todos = newTodos.map({todo(from: $0)})
+        }
+    }
+    
+    func resetFetch() {
+        todosFRC.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        todosFRC.fetchRequest.predicate = nil
+        try? todosFRC.performFetch()
+        if let newTodos = todosFRC.fetchedObjects {
+            self.todos = newTodos.map({todo(from: $0)})
+        }
+    }
 
 }
 

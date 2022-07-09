@@ -12,6 +12,8 @@ import Combine
 final class TodoListViewModel: ObservableObject {
     
     @Published var showEditor = false
+    @Published var isFiltered = false
+    @Published var isSorted = false
     
     @Published private var dataManager: DataManager
     
@@ -28,10 +30,38 @@ final class TodoListViewModel: ObservableObject {
         dataManager.todos
     }
     
+    func toggleIsComplete(todo: Todo) {
+        var newTodo = todo
+        newTodo.isComplete.toggle()
+        dataManager.updateAndSave(todo: newTodo)
+    }
+    
     func delete(at offsets: IndexSet) {
         for index in offsets {
             dataManager.delete(todo: dataManager.todos[index])
         }
     }
+    
+    func toggleFilter() {
+        isFiltered.toggle()
+        
+        if isFiltered {
+            dataManager.fetchTodos(predicate: NSPredicate(format: "isComplete == %@", NSNumber(value: true)))
+        } else {
+            dataManager.fetchTodos(predicate: NSPredicate(format: "TRUEPREDICATE"))
+        }
+        
+    }
+    
+    func toggleSort() {
+        isSorted.toggle()
+        
+        if isSorted {
+            dataManager.fetchTodos(sortDescriptors: [NSSortDescriptor(key: "title", ascending: true)])
+        } else {
+            dataManager.fetchTodos(sortDescriptors: [NSSortDescriptor(key: "date", ascending: true)])
+        }
+    }
+    
     
 }

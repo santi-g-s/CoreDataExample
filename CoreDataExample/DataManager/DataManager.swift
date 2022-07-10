@@ -40,7 +40,7 @@ class DataManager: NSObject, ObservableObject {
                 newTodo.date = Date()
                 newTodo.id = UUID()
             }
-            for i in 0..<10 {
+            for i in 0..<4 {
                 let newProject = ProjectMO(context: managedObjectContext)
                 newProject.title = "Project \(i)"
                 newProject.id = UUID()

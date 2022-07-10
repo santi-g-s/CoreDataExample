@@ -13,8 +13,8 @@ struct TodoEditorView: View {
     
     @ObservedObject var viewModel: TodoEditorViewModel
     
-    init(todo: Todo?) {
-        self.viewModel = TodoEditorViewModel(todo: todo)
+    init(todo: Todo?, dataManager: DataManager = DataManager.shared) {
+        self.viewModel = TodoEditorViewModel(todo: todo, dataManager: dataManager)
     }
     
     var body: some View {
@@ -30,11 +30,18 @@ struct TodoEditorView: View {
                 }
                 ForEach(viewModel.projects) { project in
                     Button {
-                        viewModel.toggleProject(project: project)
+                        viewModel.selectedProjectToEdit = project
                     } label: {
-                        Text(project.title)
+                        HStack {
+                            Button {
+                                viewModel.toggleProject(project: project)
+                            } label: {
+                                Image(systemName: "circle" + (viewModel.editingTodo.projectID == project.id ? ".fill" : ""))
+                            }
+                            Text(project.title)
+                        }
+                        .foregroundColor(.primary)
                     }
-                    .foregroundColor(viewModel.editingTodo.projectID == project.id ? .accentColor : .primary)
                 }
             }
         }
@@ -51,11 +58,14 @@ struct TodoEditorView: View {
             .padding(.bottom)
         }
         .navigationTitle("Edit Todo")
+        .sheet(item: $viewModel.selectedProjectToEdit) { project in
+            ProjectEditorView(project: project)
+        }
     }
 }
 
 struct TodoEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoEditorView(todo: Todo())
+        TodoEditorView(todo: Todo(), dataManager: DataManager.preview)
     }
 }

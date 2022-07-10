@@ -13,6 +13,7 @@ final class TodoEditorViewModel: ObservableObject {
     
     @Published var editingTodo: Todo
     @Published var projectSearchText: String = ""
+    @Published var selectedProjectToEdit: Project? = nil
     
     @Published private var dataManager: DataManager
     

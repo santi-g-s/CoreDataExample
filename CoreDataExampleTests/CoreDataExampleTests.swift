@@ -10,10 +10,11 @@ import XCTest
 
 class CoreDataExampleTests: XCTestCase {
 
-    let dataManager = DataManager.testing
+    var dataManager: DataManager!
 
-    override class func setUp() {
+    override func setUp() {
         super.setUp()
+        dataManager = DataManager.testing
     }
     
     override func tearDown() {

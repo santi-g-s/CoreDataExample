@@ -11,11 +11,11 @@ struct TodoEditorView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var viewModel: TodoEditorViewModel
+    @StateObject var viewModel: TodoEditorViewModel
     
-    init(todo: Todo?) {
-        self.viewModel = TodoEditorViewModel(todo: todo)
-    }
+   init(todo: Todo?) {
+       self._viewModel = StateObject(wrappedValue: TodoEditorViewModel(todo: todo))
+   }
     
     var body: some View {
         Form {

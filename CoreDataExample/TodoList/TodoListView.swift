@@ -20,10 +20,14 @@ struct TodoListView: View {
                     HStack {
                         Image(systemName: todo.isComplete ? "checkmark.circle.fill" : "checkmark.circle")
                             .onTapGesture {
-                                viewModel.toggleIsComplete(todo: todo)
+                                withAnimation {
+                                    viewModel.toggleIsComplete(todo: todo)
+                                }
                             }
                         Text(todo.title)
+                            .strikethrough(todo.isComplete)
                     }
+                    .foregroundColor(todo.isComplete ? .gray : .primary)
                 }
             }
             .onDelete { indexSet in
@@ -34,12 +38,17 @@ struct TodoListView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {
-                    viewModel.toggleFilter()
+                    withAnimation {
+                        viewModel.toggleFilter()
+                    }
+                    
                 } label: {
                     Label("Filter", systemImage: "line.3.horizontal.decrease.circle" + (viewModel.isFiltered ?  ".fill" : ""))
                 }
                 Button {
-                    viewModel.toggleSort()
+                    withAnimation {
+                        viewModel.toggleSort()
+                    }
                 } label: {
                     Label("Sort", systemImage: "arrow.up.arrow.down.circle" + (viewModel.isSorted ?  ".fill" : ""))
                 }
@@ -57,7 +66,9 @@ struct TodoListView: View {
             TodoEditorView(todo: nil)
         }
         .onAppear {
-            viewModel.fetchTodos()
+            withAnimation{
+                viewModel.fetchTodos()
+            }
         }
     }
 }

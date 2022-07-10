@@ -21,7 +21,7 @@ struct TodoEditorView: View {
         Form {
             Section {
                 TextField("Title", text: $viewModel.editingTodo.title)
-                DatePicker("Due Date", selection: $viewModel.editingTodo.date)
+                DatePicker("Date", selection: $viewModel.editingTodo.date)
                 Toggle("Complete", isOn: $viewModel.editingTodo.isComplete)
             }
         }
@@ -35,6 +35,7 @@ struct TodoEditorView: View {
                 Label("Save", systemImage: "checkmark.circle")
             }
             .buttonStyle(.borderedProminent)
+            .padding(.bottom)
         }
         .navigationTitle("Edit Todo")
     }

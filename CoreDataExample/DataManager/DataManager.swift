@@ -16,6 +16,7 @@ class DataManager: NSObject, ObservableObject {
     
     static let shared = DataManager(type: .normal)
     static let preview = DataManager(type: .preview)
+    static let testing = DataManager(type: .testing)
     
     @Published var todos = [Todo]()
     

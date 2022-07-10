@@ -12,6 +12,8 @@ struct CoreDataExampleApp: App {
     
     @Environment(\.scenePhase) private var scenePhase
     
+    var dataManager = DataManager.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -22,10 +24,10 @@ struct CoreDataExampleApp: App {
                 print("Active")
             case .inactive:
                 print("Inactive")
-                DataManager.shared.saveData()
+                dataManager.saveData()
             case .background:
                 print("background")
-                DataManager.shared.saveData()
+                dataManager.saveData()
             default:
                 print("unknown")
             }

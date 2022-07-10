@@ -47,11 +47,26 @@ final class TodoEditorViewModel: ObservableObject {
     }
     
     func addNewProject() {
+        projectSearchText = String(projectSearchText.trailingSpacesTrimmed)
         if !projects.contains(where: {$0.title.localizedLowercase == projectSearchText.localizedLowercase}) {
             var project = Project()
             project.title = projectSearchText
             dataManager.updateAndSave(project: project)
             projectSearchText = ""
         }
+    }
+}
+
+extension StringProtocol {
+
+    @inline(__always)
+    var trailingSpacesTrimmed: Self.SubSequence {
+        var view = self[...]
+
+        while view.last?.isWhitespace == true {
+            view = view.dropLast()
+        }
+
+        return view
     }
 }

@@ -40,6 +40,11 @@ class DataManager: NSObject, ObservableObject {
                 newTodo.date = Date()
                 newTodo.id = UUID()
             }
+            for i in 0..<10 {
+                let newProject = ProjectMO(context: managedObjectContext)
+                newProject.title = "Project \(i)"
+                newProject.id = UUID()
+            }
             try? self.managedObjectContext.save()
         case .testing:
             let persistentStore = PersistentStore(inMemory: true)
@@ -194,9 +199,7 @@ extension DataManager {
         todoMO.title = todo.title
         todoMO.date = todo.date
         todoMO.isComplete = todo.isComplete
-        if let project = todo.project {
-            todoMO.projectMO = getProjectMO(from: project)
-        }
+        todoMO.projectMO = getProjectMO(from: todo.project)
     }
     
 }
@@ -242,7 +245,8 @@ extension DataManager {
     }
     
     ///Get's the ProjectMO that corresponds to the project. If not ProjectMO is found, returns nil.
-    private func getProjectMO(from project: Project) -> ProjectMO? {
+    private func getProjectMO(from project: Project? ) -> ProjectMO? {
+        guard let project = project else { return nil }
         let predicate = NSPredicate(format: "id = %@", project.id as CVarArg)
         let result = fetchFirst(ProjectMO.self, predicate: predicate)
         switch result {

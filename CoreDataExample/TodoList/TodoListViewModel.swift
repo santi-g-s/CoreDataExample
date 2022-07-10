@@ -45,22 +45,29 @@ final class TodoListViewModel: ObservableObject {
     func toggleFilter() {
         isFiltered.toggle()
         
-        if isFiltered {
-            dataManager.fetchTodos(predicate: NSPredicate(format: "isComplete == %@", NSNumber(value: true)))
-        } else {
-            dataManager.fetchTodos(predicate: NSPredicate(format: "TRUEPREDICATE"))
+        withAnimation {
+            if isFiltered {
+                dataManager.fetchTodos(predicate: NSPredicate(format: "isComplete == %@", NSNumber(value: false)))
+            } else {
+                dataManager.fetchTodos(predicate: NSPredicate(format: "TRUEPREDICATE"))
+            }
         }
-        
     }
     
     func toggleSort() {
         isSorted.toggle()
         
-        if isSorted {
-            dataManager.fetchTodos(sortDescriptors: [NSSortDescriptor(key: "title", ascending: true)])
-        } else {
-            dataManager.fetchTodos(sortDescriptors: [NSSortDescriptor(key: "date", ascending: true)])
+        withAnimation {
+            if isSorted {
+                dataManager.fetchTodos(sortDescriptors: [NSSortDescriptor(key: "title", ascending: true)])
+            } else {
+                dataManager.fetchTodos(sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)])
+            }
         }
+    }
+    
+    func fetchTodos() {
+        dataManager.fetchTodos()
     }
     
     

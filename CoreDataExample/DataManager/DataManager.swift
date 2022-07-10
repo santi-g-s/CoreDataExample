@@ -44,7 +44,7 @@ class DataManager: NSObject, ObservableObject {
         }
         
         let todoFR: NSFetchRequest<TodoMO> = TodoMO.fetchRequest()
-        todoFR.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        todoFR.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         todosFRC = NSFetchedResultsController(fetchRequest: todoFR,
                                               managedObjectContext: managedObjectContext,
                                               sectionNameKeyPath: nil,

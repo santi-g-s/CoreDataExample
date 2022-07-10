@@ -14,12 +14,16 @@ struct TodoListView: View {
     var body: some View {
         List {
             ForEach(viewModel.todos) { todo in
-                HStack {
-                    Image(systemName: todo.isComplete ? "checkmark.circle.fill" : "checkmark.circle")
-                    Text(todo.title)
-                }
-                .onTapGesture {
-                    viewModel.toggleIsComplete(todo: todo)
+                NavigationLink {
+                    TodoEditorView(todo: todo)
+                } label: {
+                    HStack {
+                        Image(systemName: todo.isComplete ? "checkmark.circle.fill" : "checkmark.circle")
+                            .onTapGesture {
+                                viewModel.toggleIsComplete(todo: todo)
+                            }
+                        Text(todo.title)
+                    }
                 }
             }
             .onDelete { indexSet in
@@ -50,7 +54,10 @@ struct TodoListView: View {
             .buttonStyle(.borderedProminent)
         }
         .sheet(isPresented: $viewModel.showEditor) {
-            TodoEditorView()
+            TodoEditorView(todo: nil)
+        }
+        .onAppear {
+            viewModel.fetchTodos()
         }
     }
 }

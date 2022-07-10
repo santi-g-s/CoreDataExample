@@ -11,11 +11,11 @@ struct TodoEditorView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @StateObject var viewModel: TodoEditorViewModel
+    @ObservedObject var viewModel: TodoEditorViewModel
     
-   init(todo: Todo?) {
-       self._viewModel = StateObject(wrappedValue: TodoEditorViewModel(todo: todo))
-   }
+    init(todo: Todo?) {
+        self.viewModel = TodoEditorViewModel(todo: todo)
+    }
     
     var body: some View {
         Form {
@@ -24,12 +24,25 @@ struct TodoEditorView: View {
                 DatePicker("Date", selection: $viewModel.editingTodo.date)
                 Toggle("Complete", isOn: $viewModel.editingTodo.isComplete)
             }
+            Section {
+                TextField("Add a project", text: $viewModel.projectSearchText) {
+                    viewModel.addNewProject()
+                }
+                ForEach(viewModel.projects) { project in
+                    Button {
+                        viewModel.toggleProject(project: project)
+                    } label: {
+                        Text(project.title)
+                    }
+                    .foregroundColor(viewModel.editingTodo.project == project ? .accentColor : .primary)
+                }
+            }
         }
         .safeAreaInset(edge: .bottom) {
             Button {
                 presentationMode.wrappedValue.dismiss()
                 withAnimation {
-                    viewModel.save()
+                    viewModel.saveTodo()
                 }
             } label: {
                 Label("Save", systemImage: "checkmark.circle")

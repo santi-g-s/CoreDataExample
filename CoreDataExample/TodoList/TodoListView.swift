@@ -26,6 +26,11 @@ struct TodoListView: View {
                             }
                         Text(todo.title)
                             .strikethrough(todo.isComplete)
+                        Spacer()
+                        if let project = todo.project {
+                            Text(project.title)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                     .foregroundColor(todo.isComplete ? .gray : .primary)
                 }

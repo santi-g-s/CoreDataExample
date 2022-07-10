@@ -19,9 +19,11 @@ class DataManager: NSObject, ObservableObject {
     static let testing = DataManager(type: .testing)
     
     @Published var todos = [Todo]()
+    @Published var projects = [Project]()
     
     fileprivate var managedObjectContext: NSManagedObjectContext
     private let todosFRC: NSFetchedResultsController<TodoMO>
+    private let projectsFRC: NSFetchedResultsController<ProjectMO>
     
     private init(type: DataManagerType) {
         switch type {
@@ -50,6 +52,14 @@ class DataManager: NSObject, ObservableObject {
                                               managedObjectContext: managedObjectContext,
                                               sectionNameKeyPath: nil,
                                               cacheName: nil)
+        
+        let projectFR: NSFetchRequest<ProjectMO> = ProjectMO.fetchRequest()
+        projectFR.sortDescriptors = [NSSortDescriptor(key: "title", ascending: false)]
+        projectsFRC = NSFetchedResultsController(fetchRequest: projectFR,
+                                                 managedObjectContext: managedObjectContext,
+                                                 sectionNameKeyPath: nil,
+                                                 cacheName: nil)
+        
         super.init()
         
         // Initial fetch to populate todos array
@@ -57,6 +67,12 @@ class DataManager: NSObject, ObservableObject {
         try? todosFRC.performFetch()
         if let newTodos = todosFRC.fetchedObjects {
             self.todos = newTodos.map({todo(from: $0)})
+        }
+        
+        projectsFRC.delegate = self
+        try? projectsFRC.performFetch()
+        if let newProjects = projectsFRC.fetchedObjects {
+            self.projects = newProjects.map({createProject(from: $0)})
         }
     }
     
@@ -76,6 +92,9 @@ extension DataManager: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         if let newTodos = controller.fetchedObjects as? [TodoMO] {
             self.todos = newTodos.map({todo(from: $0)})
+        }
+        if let newProjects = controller.fetchedObjects as? [ProjectMO] {
+            self.projects = newProjects.map({createProject(from: $0)})
         }
     }
     
@@ -122,6 +141,9 @@ extension Todo {
         self.title = todoMO.title ?? ""
         self.date = todoMO.date ?? Date()
         self.isComplete = todoMO.isComplete
+        if let projectMO = todoMO.projectMO {
+            self.project = Project(projectMO: projectMO)
+        }
     }
 }
 
@@ -165,15 +187,73 @@ extension DataManager {
     private func todoMO(from todo: Todo) {
         let todoMO = TodoMO(context: managedObjectContext)
         todoMO.id = todo.id
-        todoMO.title = todo.title
-        todoMO.date = todo.date
-        todoMO.isComplete = todo.isComplete
+        update(todoMO: todoMO, from: todo)
     }
     
     private func update(todoMO: TodoMO, from todo: Todo) {
         todoMO.title = todo.title
         todoMO.date = todo.date
         todoMO.isComplete = todo.isComplete
+        if let project = todo.project {
+            todoMO.projectMO = getProjectMO(from: project)
+        }
     }
     
+}
+
+//MARK: - Project Methods
+extension Project {
+    fileprivate init(projectMO: ProjectMO) {
+        self.id = projectMO.id ?? UUID()
+        self.title = projectMO.title ?? ""
+    }
+}
+
+extension DataManager {
+    func updateAndSave(project: Project) {
+        let predicate = NSPredicate(format: "id = %@", project.id as CVarArg)
+        let result = fetchFirst(ProjectMO.self, predicate: predicate)
+        switch result {
+        case .success(let managedObject):
+            if let projectMO = managedObject {
+                update(projectMO: projectMO, from: project)
+            } else {
+                createProjectMO(from: project)
+            }
+        case .failure(_):
+            print("Couldn't fetch ProjectMO to save")
+        }
+        
+        saveData()
+    }
+    
+    private func createProject(from projectMO: ProjectMO) -> Project {
+        Project(projectMO: projectMO)
+    }
+    
+    private func createProjectMO(from project: Project) {
+        let projectMO = ProjectMO(context: managedObjectContext)
+        projectMO.id = project.id
+        update(projectMO: projectMO, from: project)
+    }
+    
+    private func update(projectMO: ProjectMO, from project: Project) {
+        projectMO.title = project.title
+    }
+    
+    ///Get's the ProjectMO that corresponds to the project. If not ProjectMO is found, returns nil.
+    private func getProjectMO(from project: Project) -> ProjectMO? {
+        let predicate = NSPredicate(format: "id = %@", project.id as CVarArg)
+        let result = fetchFirst(ProjectMO.self, predicate: predicate)
+        switch result {
+        case .success(let managedObject):
+            if let projectMO = managedObject {
+                return projectMO
+            } else {
+                return nil
+            }
+        case .failure(_):
+            return nil
+        }
+    }
 }

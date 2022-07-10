@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ProjectMO" representedClassName=".ProjectMO" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="todoMOs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoMO" inverseName="projectMO" inverseEntity="TodoMO"/>
+    </entity>
     <entity name="TodoMO" representedClassName=".TodoMO" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="projectMO" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectMO" inverseName="todoMOs" inverseEntity="ProjectMO"/>
     </entity>
     <elements>
-        <element name="TodoMO" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="TodoMO" positionX="-548.8984375" positionY="69.48828125" width="128" height="118"/>
+        <element name="ProjectMO" positionX="-89.71875" positionY="-175.45703125" width="128" height="88"/>
     </elements>
 </model>

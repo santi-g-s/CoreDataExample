@@ -17,6 +17,7 @@ struct Todo: Identifiable {
     var title: String
     var date: Date
     var isComplete: Bool
+    var project: Project?
     
     init(title: String = "", date: Date = Date(), isComplete: Bool = false) {
         self.id = UUID()

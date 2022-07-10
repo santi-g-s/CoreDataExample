@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C74F3074287B56C500B1FC51 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F3073287B56C500B1FC51 /* Project.swift */; };
 		C757F37D287A60CF00425203 /* CoreDataExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C757F37C287A60CF00425203 /* CoreDataExampleTests.swift */; };
 		C757F383287A615600425203 /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E764F92879CC7C00E3A7F7 /* PersistentStore.swift */; };
 		C757F384287A615800425203 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7E764F52879CBF600E3A7F7 /* CoreDataModel.xcdatamodeld */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C74F3073287B56C500B1FC51 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		C757F37A287A60CF00425203 /* CoreDataExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDataExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C757F37C287A60CF00425203 /* CoreDataExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExampleTests.swift; sourceTree = "<group>"; };
 		C79DEBB0287A50AD00E5DBF8 /* TodoEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditorViewModel.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				C7E764F92879CC7C00E3A7F7 /* PersistentStore.swift */,
 				C7E764FC2879CE9100E3A7F7 /* DataManager.swift */,
 				C7E764FF2879CF2300E3A7F7 /* Todo.swift */,
+				C74F3073287B56C500B1FC51 /* Project.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				C7E7650D2879FE8500E3A7F7 /* TodoListViewModel.swift in Sources */,
 				C7E764FA2879CC7C00E3A7F7 /* PersistentStore.swift in Sources */,
 				C7E765062879F48200E3A7F7 /* TodoEditorView.swift in Sources */,
+				C74F3074287B56C500B1FC51 /* Project.swift in Sources */,
 				C7E765002879CF2300E3A7F7 /* Todo.swift in Sources */,
 				C7E764F72879CBF600E3A7F7 /* CoreDataModel.xcdatamodeld in Sources */,
 				C79DEBB1287A50AD00E5DBF8 /* TodoEditorViewModel.swift in Sources */,

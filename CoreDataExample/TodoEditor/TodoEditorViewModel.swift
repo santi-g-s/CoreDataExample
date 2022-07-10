@@ -35,10 +35,10 @@ final class TodoEditorViewModel: ObservableObject {
     }
     
     func toggleProject(project: Project) {
-        if editingTodo.project == project {
-            editingTodo.project = nil
+        if editingTodo.projectID == project.id {
+            editingTodo.projectID = nil
         } else {
-            editingTodo.project = project
+            editingTodo.projectID = project.id
         }
     }
     

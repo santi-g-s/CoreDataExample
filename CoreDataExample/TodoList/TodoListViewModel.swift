@@ -30,6 +30,11 @@ final class TodoListViewModel: ObservableObject {
         dataManager.todos
     }
     
+    func getProject(with id: UUID?) -> Project? {
+        guard let id = id else { return nil }
+        return dataManager.getProject(with: id)
+    }
+    
     func toggleIsComplete(todo: Todo) {
         var newTodo = todo
         newTodo.isComplete.toggle()

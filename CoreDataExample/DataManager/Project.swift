@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct Project: Identifiable, Equatable {
+struct Project: Identifiable, Equatable, Hashable {
     var id: UUID
     var title: String
+    var todoIDs = [UUID]()
     
     init(title: String = "") {
         self.id = UUID()

@@ -34,7 +34,7 @@ struct TodoEditorView: View {
                     } label: {
                         Text(project.title)
                     }
-                    .foregroundColor(viewModel.editingTodo.project == project ? .accentColor : .primary)
+                    .foregroundColor(viewModel.editingTodo.projectID == project.id ? .accentColor : .primary)
                 }
             }
         }

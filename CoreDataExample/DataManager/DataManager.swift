@@ -141,13 +141,14 @@ extension DataManager: NSFetchedResultsControllerDelegate {
 
 //MARK: - Todo Methods
 extension Todo {
+    
     fileprivate init(todoMO: TodoMO) {
         self.id = todoMO.id ?? UUID()
         self.title = todoMO.title ?? ""
         self.date = todoMO.date ?? Date()
         self.isComplete = todoMO.isComplete
         if let projectMO = todoMO.projectMO {
-            self.project = Project(projectMO: projectMO)
+            self.projectID = projectMO.id
         }
     }
 }
@@ -185,6 +186,10 @@ extension DataManager {
         saveData()
     }
     
+    func getTodo(with id: UUID) -> Todo? {
+        return todos.first(where: {$0.id == id})
+    }
+    
     private func todo(from todoMO: TodoMO) -> Todo {
         Todo(todoMO: todoMO)
     }
@@ -199,7 +204,29 @@ extension DataManager {
         todoMO.title = todo.title
         todoMO.date = todo.date
         todoMO.isComplete = todo.isComplete
-        todoMO.projectMO = getProjectMO(from: todo.project)
+        if let id = todo.projectID, let project = getProject(with: id) {
+            todoMO.projectMO = getProjectMO(from: project)
+        } else {
+            todoMO.projectMO = nil
+        }
+    }
+    
+    ///Get's the TodoMO that corresponds to the todo. If no TodoMO is found, returns nil.
+    private func getTodoMO(from todo: Todo?) -> TodoMO? {
+        guard let todo = todo else { return nil }
+        let predicate = NSPredicate(format: "id = %@", todo.id as CVarArg)
+        let result = fetchFirst(TodoMO.self, predicate: predicate)
+        switch result {
+        case .success(let managedObject):
+            if let todoMO = managedObject {
+                return todoMO
+            } else {
+                return nil
+            }
+        case .failure(_):
+            return nil
+        }
+        
     }
     
 }
@@ -209,6 +236,10 @@ extension Project {
     fileprivate init(projectMO: ProjectMO) {
         self.id = projectMO.id ?? UUID()
         self.title = projectMO.title ?? ""
+        if let todoMOs = projectMO.todoMOs as? Set<TodoMO> {
+            let todoMOsArray = todoMOs.sorted(by: {$0.title! < $1.title!})
+            self.todoIDs = todoMOsArray.compactMap({$0.id})
+        }
     }
 }
 
@@ -230,6 +261,10 @@ extension DataManager {
         saveData()
     }
     
+    func getProject(with id: UUID) -> Project? {
+        return projects.first(where: {$0.id == id})
+    }
+    
     private func createProject(from projectMO: ProjectMO) -> Project {
         Project(projectMO: projectMO)
     }
@@ -242,9 +277,11 @@ extension DataManager {
     
     private func update(projectMO: ProjectMO, from project: Project) {
         projectMO.title = project.title
+        let todoMOs = project.todoIDs.compactMap({getTodoMO(from:getTodo(with: $0))})
+        projectMO.todoMOs = NSSet(array: todoMOs)
     }
     
-    ///Get's the ProjectMO that corresponds to the project. If not ProjectMO is found, returns nil.
+    ///Get's the ProjectMO that corresponds to the project. If no ProjectMO is found, returns nil.
     private func getProjectMO(from project: Project? ) -> ProjectMO? {
         guard let project = project else { return nil }
         let predicate = NSPredicate(format: "id = %@", project.id as CVarArg)

@@ -12,12 +12,12 @@ import SwiftUI
  backed up by a CoreData Managed Object: `TodoMO`. The `DataManager`
  handles keeping this in sync via `NSFetchedResultsControllerDelegate`.
  */
-struct Todo: Identifiable {
+struct Todo: Identifiable, Hashable {
     var id: UUID
     var title: String
     var date: Date
     var isComplete: Bool
-    var project: Project?
+    var projectID: UUID?
     
     init(title: String = "", date: Date = Date(), isComplete: Bool = false) {
         self.id = UUID()

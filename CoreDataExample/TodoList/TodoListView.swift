@@ -27,7 +27,7 @@ struct TodoListView: View {
                         Text(todo.title)
                             .strikethrough(todo.isComplete)
                         Spacer()
-                        if let project = todo.project {
+                        if let project = viewModel.getProject(with: todo.projectID) {
                             Text(project.title)
                                 .foregroundStyle(.secondary)
                         }

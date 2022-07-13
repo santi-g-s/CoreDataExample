@@ -68,7 +68,7 @@ class DataManager: NSObject, ObservableObject {
                                               cacheName: nil)
         
         let projectFR: NSFetchRequest<ProjectMO> = ProjectMO.fetchRequest()
-        projectFR.sortDescriptors = [NSSortDescriptor(key: "title", ascending: false)]
+        projectFR.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         projectsFRC = NSFetchedResultsController(fetchRequest: projectFR,
                                                  managedObjectContext: managedObjectContext,
                                                  sectionNameKeyPath: nil,
@@ -106,8 +106,8 @@ extension DataManager: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         if let newTodos = controller.fetchedObjects as? [TodoMO] {
             self.todos = OrderedDictionary(uniqueKeysWithValues: newTodos.map({ ($0.id!, Todo(todoMO: $0)) }))
-        }
-        if let newProjects = controller.fetchedObjects as? [ProjectMO] {
+        } else if let newProjects = controller.fetchedObjects as? [ProjectMO] {
+            print(newProjects)
             self.projects = OrderedDictionary(uniqueKeysWithValues: newProjects.map({ ($0.id!, Project(projectMO: $0)) }))
         }
     }

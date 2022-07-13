@@ -32,7 +32,7 @@ final class TodoEditorViewModel: ObservableObject {
     }
     
     var projects: [Project] {
-        dataManager.projects
+        dataManager.projectsArray
     }
     
     func toggleProject(project: Project) {

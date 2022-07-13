@@ -27,7 +27,7 @@ final class TodoListViewModel: ObservableObject {
     }
     
     var todos: [Todo] {
-        dataManager.todos
+        dataManager.todosArray
     }
     
     func getProject(with id: UUID?) -> Project? {
@@ -43,7 +43,7 @@ final class TodoListViewModel: ObservableObject {
     
     func delete(at offsets: IndexSet) {
         for index in offsets {
-            dataManager.delete(todo: dataManager.todos[index])
+            dataManager.delete(todo: todos[index])
         }
     }
     

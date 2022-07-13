@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import OrderedCollections
 
 enum DataManagerType {
     case normal, preview, testing
@@ -18,8 +19,16 @@ class DataManager: NSObject, ObservableObject {
     static let preview = DataManager(type: .preview)
     static let testing = DataManager(type: .testing)
     
-    @Published var todos = [Todo]()
-    @Published var projects = [Project]()
+    @Published var todos: OrderedDictionary<UUID, Todo> = [:]
+    @Published var projects: OrderedDictionary<UUID, Project> = [:]
+    
+    var todosArray: [Todo] {
+        Array(todos.values)
+    }
+    
+    var projectsArray: [Project] {
+        Array(projects.values)
+    }
     
     fileprivate var managedObjectContext: NSManagedObjectContext
     private let todosFRC: NSFetchedResultsController<TodoMO>
@@ -71,13 +80,13 @@ class DataManager: NSObject, ObservableObject {
         todosFRC.delegate = self
         try? todosFRC.performFetch()
         if let newTodos = todosFRC.fetchedObjects {
-            self.todos = newTodos.map({todo(from: $0)})
+            self.todos = OrderedDictionary(uniqueKeysWithValues: newTodos.map({ ($0.id!, Todo(todoMO: $0)) }))
         }
         
         projectsFRC.delegate = self
         try? projectsFRC.performFetch()
         if let newProjects = projectsFRC.fetchedObjects {
-            self.projects = newProjects.map({createProject(from: $0)})
+            self.projects = OrderedDictionary(uniqueKeysWithValues: newProjects.map({ ($0.id!, Project(projectMO: $0)) }))
         }
     }
     
@@ -96,10 +105,10 @@ extension DataManager: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         if let newTodos = controller.fetchedObjects as? [TodoMO] {
-            self.todos = newTodos.map({todo(from: $0)})
+            self.todos = OrderedDictionary(uniqueKeysWithValues: newTodos.map({ ($0.id!, Todo(todoMO: $0)) }))
         }
         if let newProjects = controller.fetchedObjects as? [ProjectMO] {
-            self.projects = newProjects.map({createProject(from: $0)})
+            self.projects = OrderedDictionary(uniqueKeysWithValues: newProjects.map({ ($0.id!, Project(projectMO: $0)) }))
         }
     }
     
@@ -124,7 +133,7 @@ extension DataManager: NSFetchedResultsControllerDelegate {
         }
         try? todosFRC.performFetch()
         if let newTodos = todosFRC.fetchedObjects {
-            self.todos = newTodos.map({todo(from: $0)})
+            self.todos = OrderedDictionary(uniqueKeysWithValues: newTodos.map({ ($0.id!, Todo(todoMO: $0)) }))
         }
     }
     
@@ -133,7 +142,7 @@ extension DataManager: NSFetchedResultsControllerDelegate {
         todosFRC.fetchRequest.predicate = nil
         try? todosFRC.performFetch()
         if let newTodos = todosFRC.fetchedObjects {
-            self.todos = newTodos.map({todo(from: $0)})
+            self.todos = OrderedDictionary(uniqueKeysWithValues: newTodos.map({ ($0.id!, Todo(todoMO: $0)) }))
         }
     }
 
@@ -187,11 +196,7 @@ extension DataManager {
     }
     
     func getTodo(with id: UUID) -> Todo? {
-        return todos.first(where: {$0.id == id})
-    }
-    
-    private func todo(from todoMO: TodoMO) -> Todo {
-        Todo(todoMO: todoMO)
+        return todos[id]
     }
     
     private func todoMO(from todo: Todo) {
@@ -262,11 +267,7 @@ extension DataManager {
     }
     
     func getProject(with id: UUID) -> Project? {
-        return projects.first(where: {$0.id == id})
-    }
-    
-    private func createProject(from projectMO: ProjectMO) -> Project {
-        Project(projectMO: projectMO)
+        return projects[id]
     }
     
     private func createProjectMO(from project: Project) {

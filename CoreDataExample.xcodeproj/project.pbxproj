@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C7312F3B287F7BB30074AFBC /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = C7312F3A287F7BB30074AFBC /* OrderedCollections */; };
 		C74F3074287B56C500B1FC51 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F3073287B56C500B1FC51 /* Project.swift */; };
 		C74F3077287B8D6500B1FC51 /* ProjectEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F3076287B8D6500B1FC51 /* ProjectEditorView.swift */; };
 		C74F3079287B8DAC00B1FC51 /* ProjectEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F3078287B8DAC00B1FC51 /* ProjectEditorViewModel.swift */; };
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7312F3B287F7BB30074AFBC /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +202,9 @@
 			dependencies = (
 			);
 			name = CoreDataExample;
+			packageProductDependencies = (
+				C7312F3A287F7BB30074AFBC /* OrderedCollections */,
+			);
 			productName = CoreDataExample;
 			productReference = C7E764C72879CB7200E3A7F7 /* CoreDataExample.app */;
 			productType = "com.apple.product-type.application";
@@ -232,6 +237,9 @@
 				Base,
 			);
 			mainGroup = C7E764BE2879CB7200E3A7F7;
+			packageReferences = (
+				C7312F39287F7BB30074AFBC /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			productRefGroup = C7E764C82879CB7200E3A7F7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -544,6 +552,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C7312F39287F7BB30074AFBC /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C7312F3A287F7BB30074AFBC /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7312F39287F7BB30074AFBC /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		C7E764F52879CBF600E3A7F7 /* CoreDataModel.xcdatamodeld */ = {

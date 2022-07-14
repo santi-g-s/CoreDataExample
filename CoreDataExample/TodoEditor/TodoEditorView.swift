@@ -26,21 +26,31 @@ struct TodoEditorView: View {
             }
             Section {
                 TextField("Add a project", text: $viewModel.projectSearchText) {
-                    viewModel.addNewProject()
+                    if viewModel.searchFilteredProjects.isEmpty {
+                        viewModel.addNewProject()
+                    }
                 }
-                ForEach(viewModel.projects) { project in
+                if viewModel.searchFilteredProjects.isEmpty {
                     Button {
-                        viewModel.selectedProjectToEdit = project
+                        viewModel.addNewProject()
                     } label: {
-                        HStack {
-                            Button {
-                                viewModel.toggleProject(project: project)
-                            } label: {
-                                Image(systemName: "circle" + (viewModel.editingTodo.projectID == project.id ? ".fill" : ""))
+                        Label("Add Project", systemImage: "plus.circle")
+                    }
+                } else {
+                    ForEach(viewModel.searchFilteredProjects) { project in
+                        Button {
+                            viewModel.selectedProjectToEdit = project
+                        } label: {
+                            HStack {
+                                Button {
+                                    viewModel.toggleProject(project: project)
+                                } label: {
+                                    Image(systemName: "circle" + (viewModel.editingTodo.projectID == project.id ? ".fill" : ""))
+                                }
+                                Text(project.title)
                             }
-                            Text(project.title)
+                            .foregroundColor(.primary)
                         }
-                        .foregroundColor(.primary)
                     }
                 }
             }

@@ -35,6 +35,14 @@ final class TodoEditorViewModel: ObservableObject {
         dataManager.projectsArray
     }
     
+    var searchFilteredProjects: [Project] {
+        if !projectSearchText.isEmpty {
+            return projects.filter({$0.title.localizedLowercase.contains(projectSearchText.localizedLowercase)})
+        } else {
+            return projects
+        }
+    }
+    
     func toggleProject(project: Project) {
         if editingTodo.projectID == project.id {
             editingTodo.projectID = nil

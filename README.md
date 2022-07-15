@@ -9,6 +9,8 @@ The 3 binding principles which I wanted to follow when creating this are:
   
 > Please feel free to comment on your tips, feedback, questions or anything else related.
 
+[Here's a longer article](https://medium.com/p/c0404a01c1aa) describing it.
+
 ### Acknowledgments
 
 * [This fantastic project](https://github.com/delawaremathguy/ShoppingList15) by delawaremathguy

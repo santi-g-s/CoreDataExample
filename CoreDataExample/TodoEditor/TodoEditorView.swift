@@ -34,7 +34,7 @@ struct TodoEditorView: View {
                     Button {
                         viewModel.addNewProject()
                     } label: {
-                        Label("Add Project", systemImage: "plus.circle")
+                        Label("Add New Project", systemImage: "plus.circle")
                     }
                 } else {
                     ForEach(viewModel.searchFilteredProjects) { project in

@@ -12,7 +12,7 @@ struct CoreDataExampleApp: App {
     
     @Environment(\.scenePhase) private var scenePhase
     
-    var dataManager = DataManager.shared
+    let dataManager = DataManager.shared
     
     var body: some Scene {
         WindowGroup {

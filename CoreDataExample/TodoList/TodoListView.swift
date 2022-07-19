@@ -70,11 +70,6 @@ struct TodoListView: View {
         .sheet(isPresented: $viewModel.showEditor) {
             TodoEditorView(todo: nil)
         }
-        .onAppear {
-            withAnimation{
-                viewModel.fetchTodos()
-            }
-        }
     }
 }
 

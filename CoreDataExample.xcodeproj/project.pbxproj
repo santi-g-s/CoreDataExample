@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C7312F3B287F7BB30074AFBC /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = C7312F3A287F7BB30074AFBC /* OrderedCollections */; };
+		C7074069288739C000EFD381 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7E764F52879CBF600E3A7F7 /* CoreDataModel.xcdatamodeld */; };
+		C707406A288739C200EFD381 /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E764F92879CC7C00E3A7F7 /* PersistentStore.swift */; };
+		C707406B288739C400EFD381 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E764FC2879CE9100E3A7F7 /* DataManager.swift */; };
+		C707406C288739C600EFD381 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E764FF2879CF2300E3A7F7 /* Todo.swift */; };
+		C707406D288739C800EFD381 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F3073287B56C500B1FC51 /* Project.swift */; };
+		C707407028873A9900EFD381 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = C707406F28873A9900EFD381 /* OrderedCollections */; };
+		C707407528873B2500EFD381 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = C707407428873B2500EFD381 /* OrderedCollections */; };
 		C74F3074287B56C500B1FC51 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F3073287B56C500B1FC51 /* Project.swift */; };
 		C74F3077287B8D6500B1FC51 /* ProjectEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F3076287B8D6500B1FC51 /* ProjectEditorView.swift */; };
 		C74F3079287B8DAC00B1FC51 /* ProjectEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F3078287B8DAC00B1FC51 /* ProjectEditorViewModel.swift */; };
-		C757F37D287A60CF00425203 /* CoreDataExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C757F37C287A60CF00425203 /* CoreDataExampleTests.swift */; };
-		C757F383287A615600425203 /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E764F92879CC7C00E3A7F7 /* PersistentStore.swift */; };
-		C757F384287A615800425203 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7E764F52879CBF600E3A7F7 /* CoreDataModel.xcdatamodeld */; };
-		C757F385287A615B00425203 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E764FC2879CE9100E3A7F7 /* DataManager.swift */; };
-		C757F386287A615D00425203 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E764FF2879CF2300E3A7F7 /* Todo.swift */; };
+		C757F37D287A60CF00425203 /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C757F37C287A60CF00425203 /* DataManagerTests.swift */; };
 		C79DEBB1287A50AD00E5DBF8 /* TodoEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79DEBB0287A50AD00E5DBF8 /* TodoEditorViewModel.swift */; };
 		C7E764CB2879CB7200E3A7F7 /* CoreDataExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E764CA2879CB7200E3A7F7 /* CoreDataExampleApp.swift */; };
 		C7E764CD2879CB7200E3A7F7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E764CC2879CB7200E3A7F7 /* ContentView.swift */; };
@@ -45,7 +47,7 @@
 		C74F3076287B8D6500B1FC51 /* ProjectEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditorView.swift; sourceTree = "<group>"; };
 		C74F3078287B8DAC00B1FC51 /* ProjectEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEditorViewModel.swift; sourceTree = "<group>"; };
 		C757F37A287A60CF00425203 /* CoreDataExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDataExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C757F37C287A60CF00425203 /* CoreDataExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExampleTests.swift; sourceTree = "<group>"; };
+		C757F37C287A60CF00425203 /* DataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
 		C79DEBB0287A50AD00E5DBF8 /* TodoEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditorViewModel.swift; sourceTree = "<group>"; };
 		C7E764C72879CB7200E3A7F7 /* CoreDataExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E764CA2879CB7200E3A7F7 /* CoreDataExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExampleApp.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C707407528873B2500EFD381 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,13 +76,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7312F3B287F7BB30074AFBC /* OrderedCollections in Frameworks */,
+				C707407028873A9900EFD381 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C707407328873B2500EFD381 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C74F3075287B8D5100B1FC51 /* Project Editor */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,7 +102,7 @@
 		C757F37B287A60CF00425203 /* CoreDataExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				C757F37C287A60CF00425203 /* CoreDataExampleTests.swift */,
+				C757F37C287A60CF00425203 /* DataManagerTests.swift */,
 			);
 			path = CoreDataExampleTests;
 			sourceTree = "<group>";
@@ -112,6 +122,7 @@
 				C7E764C92879CB7200E3A7F7 /* CoreDataExample */,
 				C757F37B287A60CF00425203 /* CoreDataExampleTests */,
 				C7E764C82879CB7200E3A7F7 /* Products */,
+				C707407328873B2500EFD381 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -182,9 +193,13 @@
 			buildRules = (
 			);
 			dependencies = (
+				C707407228873B1000EFD381 /* PBXTargetDependency */,
 				C757F37F287A60CF00425203 /* PBXTargetDependency */,
 			);
 			name = CoreDataExampleTests;
+			packageProductDependencies = (
+				C707407428873B2500EFD381 /* OrderedCollections */,
+			);
 			productName = CoreDataExampleTests;
 			productReference = C757F37A287A60CF00425203 /* CoreDataExampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -203,7 +218,7 @@
 			);
 			name = CoreDataExample;
 			packageProductDependencies = (
-				C7312F3A287F7BB30074AFBC /* OrderedCollections */,
+				C707406F28873A9900EFD381 /* OrderedCollections */,
 			);
 			productName = CoreDataExample;
 			productReference = C7E764C72879CB7200E3A7F7 /* CoreDataExample.app */;
@@ -221,7 +236,6 @@
 				TargetAttributes = {
 					C757F379287A60CF00425203 = {
 						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = C7E764C62879CB7200E3A7F7;
 					};
 					C7E764C62879CB7200E3A7F7 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -238,7 +252,7 @@
 			);
 			mainGroup = C7E764BE2879CB7200E3A7F7;
 			packageReferences = (
-				C7312F39287F7BB30074AFBC /* XCRemoteSwiftPackageReference "swift-collections" */,
+				C707406E28873A9900EFD381 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = C7E764C82879CB7200E3A7F7 /* Products */;
 			projectDirPath = "";
@@ -274,11 +288,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C757F383287A615600425203 /* PersistentStore.swift in Sources */,
-				C757F385287A615B00425203 /* DataManager.swift in Sources */,
-				C757F37D287A60CF00425203 /* CoreDataExampleTests.swift in Sources */,
-				C757F384287A615800425203 /* CoreDataModel.xcdatamodeld in Sources */,
-				C757F386287A615D00425203 /* Todo.swift in Sources */,
+				C7074069288739C000EFD381 /* CoreDataModel.xcdatamodeld in Sources */,
+				C707406B288739C400EFD381 /* DataManager.swift in Sources */,
+				C757F37D287A60CF00425203 /* DataManagerTests.swift in Sources */,
+				C707406A288739C200EFD381 /* PersistentStore.swift in Sources */,
+				C707406C288739C600EFD381 /* Todo.swift in Sources */,
+				C707406D288739C800EFD381 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +320,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C707407228873B1000EFD381 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = C707407128873B1000EFD381 /* OrderedCollections */;
+		};
 		C757F37F287A60CF00425203 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C7E764C62879CB7200E3A7F7 /* CoreDataExample */;
@@ -316,7 +335,6 @@
 		C757F381287A60CF00425203 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6LQ3XV8JU7;
@@ -327,14 +345,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoreDataExample.app/CoreDataExample";
 			};
 			name = Debug;
 		};
 		C757F382287A60CF00425203 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6LQ3XV8JU7;
@@ -345,7 +361,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoreDataExample.app/CoreDataExample";
 			};
 			name = Release;
 		};
@@ -554,7 +569,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C7312F39287F7BB30074AFBC /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+		C707406E28873A9900EFD381 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
 			requirement = {
@@ -565,9 +580,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C7312F3A287F7BB30074AFBC /* OrderedCollections */ = {
+		C707406F28873A9900EFD381 /* OrderedCollections */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C7312F39287F7BB30074AFBC /* XCRemoteSwiftPackageReference "swift-collections" */;
+			package = C707406E28873A9900EFD381 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		C707407128873B1000EFD381 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C707406E28873A9900EFD381 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		C707407428873B2500EFD381 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C707406E28873A9900EFD381 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
 		};
 /* End XCSwiftPackageProductDependency section */

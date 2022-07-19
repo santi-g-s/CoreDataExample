@@ -68,6 +68,4 @@ final class TodoListViewModel: ObservableObject {
     func fetchTodos() {
         dataManager.fetchTodos()
     }
-    
-    
 }

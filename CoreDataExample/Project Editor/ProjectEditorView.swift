@@ -50,6 +50,6 @@ struct ProjectEditorView: View {
 
 struct ProjectEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectEditorView(project: Project(), dataManager: DataManager.testing)
+        ProjectEditorView(project: Project(), dataManager: DataManager.preview)
     }
 }

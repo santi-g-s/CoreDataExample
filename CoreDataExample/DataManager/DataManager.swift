@@ -17,7 +17,6 @@ class DataManager: NSObject, ObservableObject {
     
     static let shared = DataManager(type: .normal)
     static let preview = DataManager(type: .preview)
-    static let testing = DataManager(type: .testing)
     
     @Published var todos: OrderedDictionary<UUID, Todo> = [:]
     @Published var projects: OrderedDictionary<UUID, Project> = [:]
@@ -34,7 +33,7 @@ class DataManager: NSObject, ObservableObject {
     private let todosFRC: NSFetchedResultsController<TodoMO>
     private let projectsFRC: NSFetchedResultsController<ProjectMO>
     
-    private init(type: DataManagerType) {
+    init(type: DataManagerType, modelUrl: URL? = nil) {
         switch type {
         case .normal:
             let persistentStore = PersistentStore()
@@ -56,7 +55,7 @@ class DataManager: NSObject, ObservableObject {
             }
             try? self.managedObjectContext.save()
         case .testing:
-            let persistentStore = PersistentStore(inMemory: true)
+            let persistentStore = PersistentStore(inMemory: true, modelUrl: modelUrl)
             self.managedObjectContext = persistentStore.context
         }
         

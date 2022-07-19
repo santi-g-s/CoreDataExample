@@ -36,6 +36,8 @@ class DataManagerTests: XCTestCase {
         XCTAssertEqual(dataManager.todos.count, 1)
     }
     
+    //Adding these below caused errors again
+    
     func test_UpdateTodo() {
         var todo = Todo()
         dataManager.updateAndSave(todo: todo)
@@ -43,6 +45,17 @@ class DataManagerTests: XCTestCase {
         
         todo.title = "New title"
         dataManager.updateAndSave(todo: todo)
+    }
+    
+    func test_DeleteTodo() {
+        
+        let todo = Todo()
+        dataManager.updateAndSave(todo: todo)
+        XCTAssertEqual(dataManager.todos.count, 1)
+        
+        dataManager.delete(todo: todo)
+        XCTAssertEqual(dataManager.todos.count, 0)
+        
     }
 
 }

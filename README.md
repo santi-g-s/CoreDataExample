@@ -1,5 +1,7 @@
 # CoreDataExample
 
+# Note: Latest attempts to make XCTest work are in the `testing` branch
+
 This project serves to present a 'bare-bones' implementation of Core Data and MVVM in SwiftUI.
 
 The 3 binding principles which I wanted to follow when creating this are:

@@ -13,14 +13,13 @@ import SwiftUI
  handles keeping this in sync via `NSFetchedResultsControllerDelegate`.
  */
 struct Todo: Identifiable, Hashable {
-    var id: UUID
+    var id = UUID()
     var title: String
     var date: Date
     var isComplete: Bool
     var projectID: UUID?
     
     init(title: String = "", date: Date = Date(), isComplete: Bool = false) {
-        self.id = UUID()
         self.title = title
         self.date = date
         self.isComplete = isComplete

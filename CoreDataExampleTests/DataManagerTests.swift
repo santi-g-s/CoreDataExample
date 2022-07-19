@@ -6,7 +6,6 @@
 //
 
 import XCTest
-@testable import CoreDataExample
 
 class DataManagerTests: XCTestCase {
 
@@ -23,15 +22,27 @@ class DataManagerTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_Starts_Empty() {
+    func test_StartsEmpty() {
         let todos = dataManager.todos
+        let projects = dataManager.projects
         XCTAssertEqual(todos.count, 0)
+        XCTAssertEqual(projects.count, 0)
     }
     
-    func test_Add_Todo() {
+    //MARK: - Todo
+    func test_AddNewTodo() {
         let todo = Todo()
         dataManager.updateAndSave(todo: todo)
         XCTAssertEqual(dataManager.todos.count, 1)
+    }
+    
+    func test_UpdateTodo() {
+        var todo = Todo()
+        dataManager.updateAndSave(todo: todo)
+        XCTAssertEqual(dataManager.todos.count, 1)
+        
+        todo.title = "New title"
+        dataManager.updateAndSave(todo: todo)
     }
 
 }

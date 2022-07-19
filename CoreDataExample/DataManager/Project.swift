@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct Project: Identifiable, Equatable, Hashable {
-    var id: UUID
+    var id = UUID()
     var title: String
     var todoIDs = [UUID]()
     
     init(title: String = "") {
-        self.id = UUID()
         self.title = title
     }
     
